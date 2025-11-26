@@ -1,0 +1,56 @@
+body{
+  background-image: url(FondoWeb3.png); /*Esto es para el fondo de la página*/
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+/*El titulo*/
+.titulo{
+  background: linear-gradient(to right, #0000,#000000);
+  width:100%;
+  padding: 20px 0;
+  font-family:"Rubik Glitch", system-ui;
+  font-weight: 400;
+  font-style: normal;
+  font-size: 2.5em;
+  color: #ffffff;
+}
+
+/*Los subtitulos*/
+.subtitulo{
+  font-family:"Funnel Display", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: normal;
+  font-style: normal;
+  font-size: 52px;
+  color: #ffffff;
+}
+
+/*texto contenido*/
+h3{
+  font-family: "IM Fell French Canon", serif;
+  font-weight: 400;
+  font-style: normal;
+  font-size:46px;
+  color: #ffffff;
+}
+
+/*listas*/
+ul{
+  color:#b13636e5;
+  font-family:"Funnel Display", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: normal;
+  font-style: normal;
+  font-size:50px;
+}
+
+/*descripción*/
+p{
+  color:#aca5a5c4;
+  font-family:"Funnel Display", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: normal;
+  font-style: normal;
+  font-size:40px;
+}
