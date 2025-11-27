@@ -1,16 +1,23 @@
 import pygame
 from juego import juego
-from Punto import bola
+from Punto import bola_quieta, bola
 from Config import ANCHO_VENTANA
+#aqui tal vez añada otra biblioteca, vere mas adelante. 26/11/2025, 17:48
 
-class JuegoProgresivo(juego):
+
+class periferic_Game(juego):
     def __init__(self, screen):
-        #  Llamamos al constructor padre
+        #construcotr padre
         super().__init__(screen)
-        
-        #  Configuración Inicial
+
+        #configuración inicial.
         self.duracion_actual = 2500
         self.punto = bola(self.duracion_actual)
+        #con este if la forzamos para que no aparezca en el centro
+        if hasattr(self.punto, 'mover_random'):
+            self.punto.mover_random()
+
+        self.punto_inmovil = bola_quieta()
         
         #  Temporizadores
         # Marca de tiempo de cuándo empezó el juego (para el tiempo total)
@@ -20,9 +27,7 @@ class JuegoProgresivo(juego):
         self.ultimo_aumento_dificultad = pygame.time.get_ticks()
 
     def actualizar(self):
-        # Mover la bola 
         super().actualizar()
-        
         # Obtener el tiempo actual
         ahora = pygame.time.get_ticks()
         
@@ -31,11 +36,11 @@ class JuegoProgresivo(juego):
         
         # Si han pasado 15 segundos
         if tiempo_desde_ultimo_cambio >= 15000:
-            self._aumentar_dificultad()
+            self.aumento_dificultad()
             # Reiniciamos el contador del intervalo
             self.ultimo_aumento_dificultad = ahora
 
-    def _aumentar_dificultad(self):
+    def aumento_dificultad(self):
         """Metodo privado para manejar la lógica de subir nivel"""
         
         # Verificamos que no bajemos del límite de 0.5s (500ms)
@@ -49,9 +54,12 @@ class JuegoProgresivo(juego):
             print(f"¡NIVEL SUBIDO! Nueva velocidad: {self.duracion_actual}ms")
         else:
             print("¡Velocidad Máxima alcanzada!")
-
+    
     def dibujar(self):
         super().dibujar()
+
+        if self.punto_inmovil:
+            self.punto_inmovil.dibujar(self.screen)
         
         # Calcular tiempo total jugado en segundos
         tiempo_total_ms = pygame.time.get_ticks() - self.tiempo_inicio_total

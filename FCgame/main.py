@@ -10,6 +10,7 @@ from menu import Menu
 #los modos de juego
 from juego_progesivo import JuegoProgresivo
 from juego_fijo import juego_fijo
+from perifericGame import periferic_Game
 
 def main ():
     #es la inicializacion del juego
@@ -36,6 +37,10 @@ def main ():
         if modo_Elegido == "progresivo":
             print("Iniciando modo de juego Progesivo.")
             juego_Actual = JuegoProgresivo(screen)
+
+        elif modo_Elegido == "periferica":
+            print("Iniciando modo vista periferica")
+            juego_Actual = periferic_Game(screen)
 
         elif modo_Elegido == "fijo":
             print("Iniciando modo de juego Fijo.")

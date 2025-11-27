@@ -1,0 +1,14 @@
+#este git ignore es para que no guarde tanta cosa, solamente tenes que poner el nombre del archivo \
+# en la siguiente commit no se guardara.
+
+# Entorno visual
+.venv
+venv
+env
+
+#archivos de cache y compilacion de python
+__pycache__
+*.pyc
+
+#archivos temporales del OS
+.DS_Store

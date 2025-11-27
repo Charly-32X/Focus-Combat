@@ -15,6 +15,7 @@ class juego:
         self.reloj = pygame.time.Clock()
         self.ejecutando = True
         self.punto = None  # Se inicializará en las clases hijas
+        self.punto_inmovil = None
         
         # Fuente para texto
         self.fuente = pygame.font.Font(None, 36)
@@ -39,6 +40,9 @@ class juego:
         
         if self.punto:
             self.punto.actualizar()
+        
+        if self.punto_inmovil:
+            self.punto.actualizar()
     
     def dibujar(self):
         
@@ -52,6 +56,9 @@ class juego:
         if self.punto:
             self.punto.dibujar(self.screen)
         
+        if self.punto_inmovil:
+            self.punto.dibujar(self.screen)
+
         # Instrucción de salida
         texto_salir = self.fuente.render("ESC para salir", True, (150, 150, 150))
         self.screen.blit(texto_salir, (10, 10))

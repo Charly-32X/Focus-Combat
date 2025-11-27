@@ -58,7 +58,8 @@ class Menu:
         return [
             boton(centro_x - ancho//2, inicio_y, ancho, alto, "ENTRENAMIENTO PROGRESIVO", "progresivo"),
             boton(centro_x - ancho//2, inicio_y + espacio, ancho, alto, "ENTRENAMIENTO FIJO", "fijo"),
-            boton(centro_x - ancho//2, inicio_y + espacio * 2, ancho, alto, "SALIR", "salir")
+            boton(centro_x - ancho//2, inicio_y + espacio * 2, ancho, alto, "ENTRENAMIENTO DE VISIÓN PERIFERICA", "periferica"),
+            boton(centro_x - ancho//2, inicio_y + espacio * 3, ancho, alto, "SALIR", "salir")
         ]
     
     def crear_botones_dificultades(self):
@@ -100,10 +101,13 @@ class Menu:
                         self.activo = False 
                     elif b.accion == "fijo":
                         self.pantalla_actual = "dificultades"
+                    if b.accion == "periferica":
+                        self.modo_elegido = "periferica"
+                        self.activo = False
                     elif b.accion == "salir":
                         self.modo_elegido = "salir"
                         self.activo = False
-                        
+                            
         elif self.pantalla_actual == "dificultades":
             for b in self.botones_dificultades:
                 if b.click(mouse_pos):

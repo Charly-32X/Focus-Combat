@@ -1,6 +1,6 @@
 import pygame
 import random
-from Config import ANCHO_VENTANA, ALTO_VENTANA, COLOR_PUNTO, RADIO_PUNTO
+from Config import ANCHO_VENTANA, ALTO_VENTANA, COLOR_PUNTO, RADIO_PUNTO, COLOR_BOLA_QUIETA
 
 class bola:  #la bola va a representar el objeto que vamos a ver y esta clase tendra varias funciones
     def __init__(self, duracion):
@@ -40,3 +40,22 @@ class bola:  #la bola va a representar el objeto que vamos a ver y esta clase te
         #esto es para que la bola exista, se dibuje sola.
 
         pygame.draw.circle(screen ,self.color, (self.x, self.y), self.radio)
+
+class bola_quieta:
+    #esta bolita, como su nombre lo dice esta quieta, no voy darle herencia pq no me sirve tanto
+
+    def __init__(self):
+        #la constructora
+        #es la posicon de la bola
+        self.x = ANCHO_VENTANA//2
+        self.y = ALTO_VENTANA//2
+
+        #atributos visuales
+        self.radio = RADIO_PUNTO - 5
+        self.color = COLOR_BOLA_QUIETA
+
+    def dibujar(self, screen):
+        #aqui se dibujara en el centro.
+
+        pygame.draw.circle(screen, self.color, (self.x, self.y), self.radio)
+
