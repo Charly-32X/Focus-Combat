@@ -1,0 +1,26 @@
+#este docker ignore es para que no guarde tanta cosa, solamente tenes que poner el nombre del archivo \
+# en la siguiente commit no se guardara.
+
+# Entorno virtual
+.venv
+venv
+env
+
+#archivos de cache y compilacion de python
+__pycache__
+*.pyc
+
+#archivos temporales del OS
+.DS_Store
+
+#excluir carpetas de compilacion que vamos a generar
+build/
+dist/
+
+#exlcuir archivos especificos del editor
+.vscode/
+.git/
+
+
+#excluir la web
+Web/

@@ -1,7 +1,7 @@
 #este git ignore es para que no guarde tanta cosa, solamente tenes que poner el nombre del archivo \
 # en la siguiente commit no se guardara.
 
-# Entorno visual
+# Entorno virtual
 .venv
 venv
 env

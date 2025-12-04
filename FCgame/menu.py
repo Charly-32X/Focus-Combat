@@ -1,5 +1,5 @@
 import pygame
-from Config import ALTO_VENTANA, ANCHO_VENTANA, COLOR_FONDO, COLOR_TEXTO
+from Config import COLOR_FONDO, COLOR_TEXTO, Archivo_fuente_name_titulo, Archivo_fuente_name_subtitulo, titulo_size, botones_size
 
 class boton:
     def __init__(self, x, y, ancho, alto, texto, accion):
@@ -12,7 +12,7 @@ class boton:
         self.color_hover = (255, 10, 10)
         self.color_actual = self.color_original
 
-        self.texto_fuente = pygame.font.Font(None, 33)
+        self.texto_fuente = pygame.font.Font(Archivo_fuente_name_subtitulo, botones_size)
 
     def actualizar(self, mouse_pos):
         # Al pasar el mouse, el color cambia.
@@ -22,7 +22,9 @@ class boton:
             self.color_actual = self.color_original
     
     def dibujar(self, screen):
-        pygame.draw.rect(screen, self.color_actual, self.rect, border_radius=15)
+        pygame.draw.rect(screen, (255, 255, 255), (self.rect.x + 4, self.rect.y + 4, self.rect.width, self.rect.height))
+
+        pygame.draw.rect(screen, self.color_actual, self.rect)
         pygame.draw.rect(screen, COLOR_TEXTO, self.rect, 2)
 
         texto_superficie = self.texto_fuente.render(self.texto, True, COLOR_TEXTO)
@@ -38,33 +40,65 @@ class Menu:
         self.activo = True
         self.pantalla_actual = "principal" 
 
-        self.fuente_titulo = pygame.font.Font(None, 80)
-        self.fuente_subtitulo = pygame.font.Font(None, 40)
+        try:
+            self.fuente_titulo = pygame.font.Font(Archivo_fuente_name_titulo, titulo_size)
+            self.fuente_subtitulo = pygame.font.Font(Archivo_fuente_name_subtitulo, botones_size)
+        except:
+            self.fuente_titulo = pygame.font.Font(None, titulo_size)
+            self.fuente_subtitulo = pygame.font.Font(None, botones_size)
         
         self.modo_elegido = None
         self.dificultad_elegida = None
 
-        # Nombres corregidos de los métodos
+        # metodos para la seleccion de los modos de juego
         self.botones_principal = self.crear_botones_principal()
         self.botones_dificultades = self.crear_botones_dificultades()
 
     def crear_botones_principal(self):
-        centro_x = ANCHO_VENTANA // 2
-        inicio_y = 300
-        ancho = 400
-        alto = 70
-        espacio = 90
+
+        ancho = self.screen.get_width()
+        alto = self.screen.get_height()
+
+        #altura
+        centro_x = ancho//2
+        inicio_y = int(alto*0.4)
+
+        #tamaño de los botones
+        ancho = 300
+        alto = 70 
+        separacion = 30
+
+        botones = []
+
+        # FILA 1: TRES BOTONES ---
         
-        return [
-            boton(centro_x - ancho//2, inicio_y, ancho, alto, "ENTRENAMIENTO PROGRESIVO", "progresivo"),
-            boton(centro_x - ancho//2, inicio_y + espacio, ancho, alto, "ENTRENAMIENTO FIJO", "fijo"),
-            boton(centro_x - ancho//2, inicio_y + espacio * 2, ancho, alto, "ENTRENAMIENTO DE VISIÓN PERIFERICA", "periferica"),
-            boton(centro_x - ancho//2, inicio_y + espacio * 3, ancho, alto, "SALIR", "salir")
-        ]
-    
+        # 1. Botón Central 
+        x_centro = centro_x - (ancho // 2)
+        botones.append(boton(x_centro, inicio_y, ancho, alto, "PERIFÉRICO", "periferica"))
+        botones.append(boton(x_centro, inicio_y+120, ancho, alto, "SMOOTH PURSUIT", "smooth"))
+        
+        # 2. Botón Izquierdo 
+        x_izq = x_centro - ancho - separacion
+        botones.append(boton(x_izq, inicio_y, ancho, alto, "PROGRESIVO", "progresivo"))
+        
+        # 3. Botón Derecho
+        x_der = x_centro + ancho + separacion
+        botones.append(boton(x_der, inicio_y, ancho, alto, "MODO FIJO", "fijo"))
+        
+        # --- FILA 2: SALIR ---
+        y_abajo = inicio_y + alto + 150
+        botones.append(boton(x_centro, y_abajo, ancho, alto, "SALIR", "salir"))
+
+        return botones
+
     def crear_botones_dificultades(self):
-        centro_x = ANCHO_VENTANA // 2
-        inicio_y = 250
+
+        ancho = self.screen.get_width()
+        alto = self.screen.get_height()
+
+        centro_x = ancho // 2
+        inicio_y = int(alto * 0.35)
+
         ancho = 350
         alto = 70
         espacio = 90
@@ -85,6 +119,11 @@ class Menu:
                 self.modo_elegido = "salir"
                 return
             
+            if evento.type == pygame.VIDEORESIZE:
+                self.screen = pygame.display.set_mode((evento.w, evento.h), pygame.RESIZABLE)
+                self.botones_principal = self.crear_botones_principal()
+                self.botones_dificultades = self.crear_botones_dificultades()
+            
             if evento.type == pygame.MOUSEBUTTONDOWN:
                 self._manejar_click(mouse_pos)
         
@@ -104,6 +143,9 @@ class Menu:
                     if b.accion == "periferica":
                         self.modo_elegido = "periferica"
                         self.activo = False
+                    if b.accion == "smooth":
+                        self.modo_elegido = "smooth"
+                        self.activo = False
                     elif b.accion == "salir":
                         self.modo_elegido = "salir"
                         self.activo = False
@@ -120,10 +162,12 @@ class Menu:
 
     def dibujar(self):
         self.screen.fill(COLOR_FONDO)
+
+        ancho = self.screen.get_width()
         
         titulo_texto = "DIFICULTAD" if self.pantalla_actual == "dificultades" else "FOCUS COMBAT"
         titulo = self.fuente_titulo.render(titulo_texto, True, COLOR_TEXTO)
-        self.screen.blit(titulo, titulo.get_rect(center=(ANCHO_VENTANA//2, 150)))
+        self.screen.blit(titulo, titulo.get_rect(center=(ancho//2, 150)))
 
         botones = self.botones_principal if self.pantalla_actual == "principal" else self.botones_dificultades
         for b in botones:

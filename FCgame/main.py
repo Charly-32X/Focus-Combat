@@ -11,13 +11,14 @@ from menu import Menu
 from juego_progesivo import JuegoProgresivo
 from juego_fijo import juego_fijo
 from perifericGame import periferic_Game
+from smooth import smooth
 
 def main ():
     #es la inicializacion del juego
     pygame.init()
 
     #la screen o ventana
-    screen = pygame.display.set_mode((ANCHO_VENTANA, ALTO_VENTANA))
+    screen = pygame.display.set_mode((ANCHO_VENTANA, ALTO_VENTANA), pygame.RESIZABLE)
     pygame.display.set_caption(TITULO_VENTANA)
 
     #este bucle permite poder seleccionar el modo que quieras.
@@ -41,6 +42,10 @@ def main ():
         elif modo_Elegido == "periferica":
             print("Iniciando modo vista periferica")
             juego_Actual = periferic_Game(screen)
+
+        elif modo_Elegido == "smooth":
+            print("iniciando modo smooth visual")
+            juego_Actual = smooth(screen)
 
         elif modo_Elegido == "fijo":
             print("Iniciando modo de juego Fijo.")

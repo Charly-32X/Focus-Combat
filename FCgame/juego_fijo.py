@@ -10,11 +10,14 @@ class juego_fijo(juego):
         #aqui llama al constrcutor de la clase juego
         super().__init__(screen)
 
+        ancho = self.screen.get_width()
+        alto = self.screen.get_height()
+
         #Aqui obtenemos la duración segun las dificultades que eligamos
         duracion = DIFICULTADES[dificultad]
 
         #crea el punto con la duracion fija
-        self.punto = bola(duracion)
+        self.punto = bola(duracion, ancho, alto)
 
         #aqui guarda la info de la dificultad para mostrarla
         self.dificultad = dificultad

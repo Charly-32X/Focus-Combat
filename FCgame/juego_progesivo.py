@@ -8,9 +8,12 @@ class JuegoProgresivo(juego):
         #  Llamamos al constructor padre
         super().__init__(screen)
         
+        ancho = self.screen.get_width()
+        alto = self.screen.get_height()
+
         #  Configuración Inicial
         self.duracion_actual = 2500
-        self.punto = bola(self.duracion_actual)
+        self.punto = bola(self.duracion_actual, ancho, alto)
         
         #  Temporizadores
         # Marca de tiempo de cuándo empezó el juego (para el tiempo total)

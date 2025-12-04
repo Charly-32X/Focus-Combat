@@ -1,5 +1,5 @@
 import pygame
-from Config import ANCHO_VENTANA, ALTO_VENTANA, COLOR_FONDO, FPS
+from Config import COLOR_FONDO, FPS
 
 class juego:
      #esta clase sera para los gamee loops y todo eso
@@ -32,17 +32,24 @@ class juego:
             if evento.type == pygame.KEYDOWN:
                 if evento.key == pygame.K_ESCAPE:
                     self.ejecutando = False
+            
+            #este evento es para que se redimensionen las cosas al ajustarse
+            if evento.type == pygame.VIDEORESIZE:
+                self.screen = pygame.display.set_mode((evento.w, evento.h), pygame.RESIZABLE)
 
     def actualizar(self):
         
         #Actualiza la lógica del juego.
         #Este método será sobrescrito por las clases hijas.
+
+        ancho_Actual = self.screen.get_width()
+        alto_Actual = self.screen.get_height()
         
         if self.punto:
-            self.punto.actualizar()
+            self.punto.actualizar(ancho_Actual, alto_Actual )
         
-        if self.punto_inmovil:
-            self.punto.actualizar()
+        if hasattr(self.punto_inmovil, 'actualizar'):
+            self.punto_inmovil.actualizar(ancho_Actual, alto_Actual)
     
     def dibujar(self):
         
