@@ -59,7 +59,7 @@ Nota: No requiere instalación de Python.
 Requisitos: Python 3.10+
 
 #### 1. Clonar el repositorio
-git clone [https://github.com/TU_USUARIO/FocusCombat.git](https://github.com/TU_USUARIO/FocusCombat.git)
+git clone [https://github.com/Charly-32X/Focus-Combat.git](https://github.com/Charly-32X/Focus-Combat.git)
 
 #### 2. Entrar a la carpeta
 cd FocusCombat
