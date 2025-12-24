@@ -35,6 +35,7 @@ Diseño Adaptativo: La interfaz utiliza cálculos matemáticos dinámicos para a
 Arquitectura POO: Código modular basado en clases, herencia y polimorfismo para facilitar la expansión.
 
 # Tecnologías Utilizadas
+Google Gemini (me ayudo bastantea a aprender y a hacer)
 
 Lenguaje: Python 3.12
 
